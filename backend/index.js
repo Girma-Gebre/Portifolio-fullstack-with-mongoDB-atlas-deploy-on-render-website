@@ -3,7 +3,8 @@ const cors = require('cors');
 const express = require('express');
 const postRouter = require('./crude operation/router-post')
 const APP = express();
-const path = "C:/Users/0/Desktop/Projects for remote jobs/Full stack web developer/Portifolio fullstack with mongoDB atlas/frontend" // frontend path
+// const path = "C:/Users/0/Desktop/Projects for remote jobs/Full stack web developer/Portifolio fullstack with mongoDB atlas/frontend" // frontend path for local
+const path = "https://portifolio-fullstack-with-mongodb-atlas-lc7n.onrender.com"// for deployed frontend url
 APP.use(express.static(path)); // keeping files in the public folder
 const port = 2000;
 APP.use(cors())
