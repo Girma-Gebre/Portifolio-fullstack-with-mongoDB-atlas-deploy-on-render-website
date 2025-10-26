@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personal Portfolio Website of Girma Gebre - Frontend Developer">
+  <title>Girma Gebre | Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome for social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav class="container nav">
+      <h1 class="logo">Girma Gebre</h1>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="menu-toggle" id="menu-toggle">☰</div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="container">
+    <div class="hero-content">
+      <h2>Hi, I'm <span class="highlight">Girma Gebre</span></h2>
+      <p>Fullstack Web Developer</p>
+      <button onclick="scrollToSection('projects')">View My Work</button>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="container section">
+    <h2>About Me</h2>
+    <p>
+      I'm Girma Gebre, a <b>fullstack developer</b> fanatical about building modern, responsive, and user-friendly web apps using HTML, CSS, JavaScript, React Js, Node Js, Express Js interacted with databases like MySQL or postgreSQL, MongoDB but not limited to these. 
+    </p>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="container section">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <h3>Markdown Preview App</h3>
+        <p>A <b>Markdown Preview </b>App lets users write Markdown and see real-time output. It uses parsers to convert syntax into HTML, showcasing live rendering and interactivity.</p>
+        <a target="_blank" href="https://github.com/Girma-Gebre/Markdown-preview">GitHub</a> | <a target="_blank" href="https://mark-down-apps.netlify.app/">Live Demo</a>
+      </div>
+      <div class="project-card">
+        <h3>Pokémon Search App</h3>
+        <p>A <b>Pokémon Search App</b> lets users find Pokémon by name or ID. It fetches data from an API, showing details like type, stats, and abilities instantly.</p>
+        <a target="_blank" href="https://github.com/Girma-Gebre/pokeman-search-app">GitHub</a> | <a target="_blank" href="https://pokemon-search-apps.netlify.app/">Live Demo</a>
+      </div>
+      <div class="project-card">
+        <h3>Telephone Validator App</h3>
+        <p>A <b>Telephone Validator App</b> checks if phone numbers match valid formats. It uses regex or libraries to validate input, ensuring accuracy and proper formatting instantly.</p>
+        <a target="_blank" href="https://github.com/Girma-Gebre/Telephone-validator-App">GitHub</a> | <a target="_blank" href="https://telephone-number-valid.netlify.app/">Live Demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="container section">
+    <h2>Contact Me</h2>
+    <form id="contact-form" class="contact-form">
+      <input type="text" placeholder="Your Name"  id="name" required>
+      <input type="email" placeholder="Your Email"  id="email" required>
+      <textarea placeholder="Your Message" id="comment" required></textarea>
+      <button type="submit" >Send</button>
+    </form>
+    <p id="dataCheck"></p>
+    <!-- Social Icons -->
+    <div class="social-links">
+      <a href="https://t.me/girmagebrey" target="_blank" title="telegram"><i class="fab fa-telegram fa-2x"></i></a>
+      <a href="mailto:girmagebre555@gmail.com" target="_blank" title="email"><i class="fas fa-envelope fa-2x"></i></a>
+      <a href="https://www.linkedin.com/in/girma-gebre-linked/" target="_blank" title="linkedin"><i class="fab fa-linkedin fa-2x"></i></a>
+      <a href="https://web.facebook.com/girma.gebre.545" target="_blank" title="facebook"><i class="fab fa-facebook fa-2x"></i></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Girma Gebre. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
