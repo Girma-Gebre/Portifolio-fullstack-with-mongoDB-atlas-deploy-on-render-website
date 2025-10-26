@@ -25,7 +25,7 @@ document.getElementById("contact-form").addEventListener("submit", async functio
     // collecting data from html input element
     const sendData = { name, email, comment }; // using ES6 shorthand object syntax.
     /*const url = "http://localhost:2000/sidejob"; // this url is for local database managment */
-    const url = "/sidejob"; // this url is for cloud database managment
+    const url = "https://portifolio-fullstack-with-mongodb-atlas.onrender.com/sidejob"; // this url is for cloud database managment
     const endpointObject = {
       method: "POST", 
       headers: {"Content-Type": "application/json"}, 
