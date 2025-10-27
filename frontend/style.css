@@ -147,6 +147,7 @@ header {
 }
 #about p{
     text-align: justify;
+    margin: 1rem;
 }
 .project-card {
     background: var(--gray);
