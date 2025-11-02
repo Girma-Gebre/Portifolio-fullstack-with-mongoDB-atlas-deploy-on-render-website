@@ -9,6 +9,7 @@ function scrollToSection(id) {
 const menuToggle = document.getElementById("menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 const display = document.getElementById("dataCheck");
+const spinner = document.getElementById("spinner");
 
 menuToggle.addEventListener("click", () => {
   navLinks.classList.toggle("active");
@@ -17,6 +18,7 @@ menuToggle.addEventListener("click", () => {
 // Contact form handler (demo)
 document.getElementById("contact-form").addEventListener("submit", async function(e){
   e.preventDefault(); //event handler to stop the browser’s default action for that event.
+  spinner.style.display = "block" // show spinner
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
   const comment = document.getElementById("comment").value; 
@@ -36,15 +38,23 @@ document.getElementById("contact-form").addEventListener("submit", async functio
     const data = await res.json(); //chaning data into Json format
     const userFirstName = sendData.name.match(/^[^\s]+/)
 
-  alert(`Thanks "${userFirstName[0]}" for your interest! I’ll contact you soon.`);
-  this.reset();
-  display.style.color = "green";
-  display.innerHTML = "Data is submitted succesfully";
+    this.reset();
+   const submitted = "Data is submitted successfully"
+    if(data.Msg === submitted ){
+       alert(`Thanks "${userFirstName[0]}" for your interest! I’ll contact you soon.`)
+      display.style.color = "#2196f3";
+      display.innerHTML = data.Msg;  
+    } else {
+       display.style.color = "red";
+       display.innerHTML = `your data is not submitted due to ${data.Msg}`;  
+    }
 
   }catch(err){
-    console.log(err);
+    console.error(err);
     display.style.color = "red";
-    display.innerHTML = "The data is not sent";
+    display.innerHTML = "URL/API not found";
+  }finally{
+   spinner.style.display = "none" // hidden spinner
   }
 
 });

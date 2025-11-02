@@ -20,9 +20,9 @@ router.post("/sidejob", async (req,res)=>{
     try{
 const newEmployer = new employer(req.body); // creating object from class
     await newEmployer.save(); // enable the data to save by mongoose and send to mongoDB as BJSON data type.
-        res.status(200).json(newEmployer);
+          res.status(200).json({ Msg: "Data is submitted successfully" }); // ✅ send JSON this is manadatory to work the front end correctly nice!
     }catch(err){
-        res.status(500).json({MSg: "internal server error"}); 
+        res.status(500).json({Msg: "internal server error or problem on database connection"});
     }
 });
 

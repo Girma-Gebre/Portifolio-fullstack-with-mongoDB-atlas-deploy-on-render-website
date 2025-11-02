@@ -110,11 +110,11 @@ header {
     font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
-    transition: transform 0.2s;
 }
 
 #hero button:hover {
-    transform: scale(1.05);
+    border-radius: 20px;
+    transition: border-radius 0.4s ease-in-out;
 }
 
 /* ============ Sections ============ */
@@ -201,17 +201,20 @@ header {
 
 .contact-form button {
     padding: 12px;
+    border-radius: 5px;
     background: var(--primary);
     color: var(--light);
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border: 1px solid rgb(48, 47, 47);
     font-size: 1rem;
     transition: background 0.3s;
 }
 
 .contact-form button:hover {
     background: #1976d2;
+    border-radius: 100px;
+    transition: border-radius 0.8s;
 }
 
 /* ============ Footer ============ */
@@ -262,3 +265,26 @@ footer {
         display: block;
     }
 }
+
+/* spinner */
+.spinner {
+  border: 0.3rem solid var(--primary);        /* Light grey */
+  border-top: 0.3rem solid white;    /* Blue */
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  animation: spin 1s linear infinite;
+  display: none;                    /*hidden initially*/
+  margin: 12px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* result message */
+#dataCheck{
+    margin: 12px;
+}
+
+
