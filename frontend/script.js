@@ -18,6 +18,7 @@ menuToggle.addEventListener("click", () => {
 // Contact form handler (demo)
 document.getElementById("contact-form").addEventListener("submit", async function(e){
   e.preventDefault(); //event handler to stop the browser’s default action for that event.
+  display.style.display = "none" // changing one style 
   spinner.style.display = "block" // show spinner
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
@@ -42,16 +43,26 @@ document.getElementById("contact-form").addEventListener("submit", async functio
    const submitted = "Data is submitted successfully"
     if(data.Msg === submitted ){
        alert(`Thanks "${userFirstName[0]}" for your interest! I’ll contact you soon.`)
-      display.style.color = "#2196f3";
+       // changing more than one style at once in Js
+       Object.assign(display.style, {
+         color: "#2196f3",
+         display: "block"
+       });
       display.innerHTML = data.Msg;  
     } else {
-       display.style.color = "red";
+      Object.assign(display.style, {
+         color: "red",
+         display: "block"
+       });
        display.innerHTML = `your data is not submitted due to ${data.Msg}`;  
     }
 
   }catch(err){
     console.error(err);
-    display.style.color = "red";
+     Object.assign(display.style, {
+         color: "red",
+         display: "block"
+       });
     display.innerHTML = "URL/API not found";
   }finally{
    spinner.style.display = "none" // hidden spinner
