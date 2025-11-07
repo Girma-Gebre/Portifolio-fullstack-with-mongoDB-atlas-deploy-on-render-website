@@ -1,6 +1,6 @@
 require('dotenv').config(); // to config the .env file 
 const express = require("express");
-const mongoose = require('mongoose'); // this must be core module
+const mongoose = require('mongoose'); 
 const router = express.Router();
 // connect the serer (node Js) with mongoDB atlas
 mongoose.connect(process.env.MONGO_URL)
@@ -18,11 +18,11 @@ const employer = mongoose.model("sideJob", employerSchema);
 
 router.post("/sidejob", async (req,res)=>{
     try{
-    const {name, email} = req.body;
+    const {name, email, comment} = req.body;
     const dataName = await employer.findOne({name});
     const dataEmail = await employer.findOne({email});
-    
-    //check all data existance
+
+    //check all data existance first
       if(dataName && dataEmail){
        return res.json({Msg: "Your name and email are already exist!"})
        }
@@ -38,7 +38,7 @@ router.post("/sidejob", async (req,res)=>{
         }
         
 
-        const newEmployer = new employer({name, email}); // creating object from class
+        const newEmployer = new employer({name, email, comment}); // creating object from class
        await newEmployer.save(); // enable the data to save by mongoose and send to mongoDB as BJSON data type.
         res.status(200).json({ Msg: "Data is submitted successfully" }); // ✅ send JSON this is manadatory to work the front end correctly nice!
   
