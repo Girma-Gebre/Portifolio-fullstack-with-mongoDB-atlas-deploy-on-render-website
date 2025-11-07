@@ -21,17 +21,17 @@ router.post("/sidejob", async (req,res)=>{
     const {name, email} = req.body;
     const dataCheck = await employer.findOne({$or: [{name}, {email}]});
     const dataName = await employer.findOne({name});
-    const dataEmail = await employer.findOne({email})
+    const dataEmail = await employer.findOne({email});
     if(dataCheck){
+      if(dataName && dataEmail){
+       return res.json({Msg: "Your name and email are already exist!"})
+       }
         if(dataName){
        return res.json({Msg: "Your name is already exists!"})     
         }
         if(dataEmail){
             return res.json({Msg: "Your email is already exists!"})
         }
-       if(dataName && dataEmail){
-       return res.status(200).json({Msg: "Your name and email are already exist!"})
-       }
         
     } else{
         const newEmployer = new employer({name, email}); // creating object from class

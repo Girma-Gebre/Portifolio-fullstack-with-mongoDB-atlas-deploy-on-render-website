@@ -54,7 +54,7 @@ document.getElementById("contact-form").addEventListener("submit", async functio
          color: "red",
          display: "block"
        });
-       display.innerHTML = `your data is not submitted due to ${data.Msg}`;  
+       display.innerHTML = `${data.Msg}`;  
     }
 
   }catch(err){
@@ -63,7 +63,7 @@ document.getElementById("contact-form").addEventListener("submit", async functio
          color: "red",
          display: "block"
        });
-    display.innerHTML = "URL/API not found";
+    display.innerHTML = "No internate or URL/API not found";
   }finally{
    spinner.style.display = "none" // hidden spinner
   }
