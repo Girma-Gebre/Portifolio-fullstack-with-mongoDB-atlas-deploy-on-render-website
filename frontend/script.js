@@ -32,7 +32,7 @@ document.getElementById("contact-form").addEventListener("submit", async functio
     const endpointObject = {
       method: "POST", 
       headers: {"Content-Type": "application/json"}, 
-      body: JSON.stringify(sendData) // making the data sitring
+      body: JSON.stringify(sendData) // making the data sitring 
     };
 
     const res = await fetch(url, endpointObject);

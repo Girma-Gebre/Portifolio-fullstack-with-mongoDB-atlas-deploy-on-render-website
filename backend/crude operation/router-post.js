@@ -18,9 +18,27 @@ const employer = mongoose.model("sideJob", employerSchema);
 
 router.post("/sidejob", async (req,res)=>{
     try{
-const newEmployer = new employer(req.body); // creating object from class
-    await newEmployer.save(); // enable the data to save by mongoose and send to mongoDB as BJSON data type.
-          res.status(200).json({ Msg: "Data is submitted successfully" }); // ✅ send JSON this is manadatory to work the front end correctly nice!
+    const {name, email} = req.body;
+    const dataCheck = await employer.findOne({$or: [{name}, {email}]});
+    const dataName = await employer.findOne({name});
+    const dataEmail = await employer.findOne({email})
+    if(dataCheck){
+        if(dataName){
+       return res.json({Msg: "Your name is already exists!"})     
+        }
+        if(dataEmail){
+            return res.json({Msg: "Your email is already exists!"})
+        }
+       if(dataName && dataEmail){
+       return res.status(200).json({Msg: "Your name and email are already exist!"})
+       }
+        
+    } else{
+        const newEmployer = new employer({name, email}); // creating object from class
+       await newEmployer.save(); // enable the data to save by mongoose and send to mongoDB as BJSON data type.
+        res.status(200).json({ Msg: "Data is submitted successfully" }); // ✅ send JSON this is manadatory to work the front end correctly nice!
+    }
+          
     }catch(err){
         res.status(500).json({Msg: "internal server error or problem on database connection"});
     }
