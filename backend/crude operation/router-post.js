@@ -25,13 +25,13 @@ const employer = mongoose.model("sideJob", employerSchema);
 
 // making the userId to be set 1 and autoincrement if there is no documnet in the collection
 async function resetCounterIfEmpty() {
-  const count = await employer.countDocuments();
+  const count = await employer.countDocuments(); // this shows the valoue of seq in counters collection it indicates the heighest "UserId" or the number of documents in the "sidejobs" collection in mongoDB database
   if (count === 0) {
     // Reset the counter for "UserId"
     await mongoose.connection.collection("_counters").updateOne( // _counters default mongoose can know
-      { _id: "sidejobs_UserId" },
+      { _id: "sidejobs_UserId" }, // <-- must match collection name + field exactly
       { $set: { seq: 0 } },
-      { upsert: true }
+      { upsert: true } // insert if it is not exist update if it is exixt
     );
   }
 }
