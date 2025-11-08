@@ -18,8 +18,9 @@ const employer = mongoose.model("sideJob", employerSchema);
 
 router.post("/sidejob", async (req,res)=>{
     try{
-    const {name, email, comment} = req.body;
-    const dataName = await employer.findOne({name});
+    const nameNoExtraSpace = req.body.name.replace(/\s+/g, " ").trim();
+    const {email, comment} = req.body;
+    const dataName = await employer.findOne({name:nameNoExtraSpace});
     const dataEmail = await employer.findOne({email});
 
     //check all data existance first
@@ -38,10 +39,9 @@ router.post("/sidejob", async (req,res)=>{
         }
         
 
-        const newEmployer = new employer({name, email, comment}); // creating object from class
+        const newEmployer = new employer({name: nameNoExtraSpace, email, comment}); // creating object from class
        await newEmployer.save(); // enable the data to save by mongoose and send to mongoDB as BJSON data type.
-        res.status(200).json({ Msg: "Data is submitted successfully" }); // ✅ send JSON this is manadatory to work the front end correctly nice!
-  
+        res.status(200).json({ Msg: "Data is submitted successfully" }); // ✅send JSON this is manadatory to work the front end correctly nice!
           
     }catch(err){
         res.status(500).json({Msg: "internal server error or problem on database connection"});
