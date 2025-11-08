@@ -2,6 +2,7 @@ require('dotenv').config(); // to config the .env file
 const express = require("express");
 const mongoose = require('mongoose'); 
 const router = express.Router();
+const Autoincrement = require("mongoose-sequence")(mongoose); // import the autoincrement as-built module
 // connect the serer (node Js) with mongoDB atlas
 mongoose.connect(process.env.MONGO_URL)
 .then(()=>console.log("Conneted to MongoDB Atlas"))
@@ -12,7 +13,9 @@ const employerSchema = mongoose.Schema({
     email: {type: String, required: true},
     comment: {type: String, required: true}   
 }); 
- 
+ //---------insert "User_id" field and make autoincrement for each data inserted from client/fromtend-------
+//--------inc_field is plugin expexted object key
+employerSchema.plugIn(Autoincrement, {inc_field: "User_id"}); 
 // creating "sideJobs" collection in the mongodb and class for creating an instance object template(data from client e.g: req.body).
 const employer = mongoose.model("sideJob", employerSchema);
 
