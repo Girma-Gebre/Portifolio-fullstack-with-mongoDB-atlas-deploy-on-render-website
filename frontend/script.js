@@ -63,7 +63,7 @@ document.getElementById("contact-form").addEventListener("submit", async functio
          color: "red",
          display: "block"
        });
-    display.innerHTML = "No internate or URL/API not found";
+    display.innerHTML = "No internet connection or URL/API not found";
   }finally{
    spinner.style.display = "none" // hidden spinner
   }

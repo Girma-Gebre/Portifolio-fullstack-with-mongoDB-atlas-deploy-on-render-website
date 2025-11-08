@@ -13,32 +13,32 @@ const employerSchema = mongoose.Schema({
     comment: {type: String, required: true}   
 }); 
  
-// creating "employee" collection in the mongodb and class for object templaten(data from client e.g: req.body).
+// creating "sideJobs" collection in the mongodb and class for creating an instance object template(data from client e.g: req.body).
 const employer = mongoose.model("sideJob", employerSchema);
 
 router.post("/sidejob", async (req,res)=>{
     try{
-    const nameNoExtraSpace = req.body.name.replace(/\s+/g, " ").trim();
+    const nameNoExtraSpace = req.body.name.replace(/\s+/g, " ").trim(); //avoiding extra space from name from client/frontend  
     const {email, comment} = req.body;
     const dataName = await employer.findOne({name:nameNoExtraSpace});
     const dataEmail = await employer.findOne({email});
 
-    //check all data existance first
+    //check both name and email are already exist first
       if(dataName && dataEmail){
        return res.json({Msg: "Your name and email are already exist!"})
        }
 
-    //check name existance
+    //check name is already exist
         if(dataName){
        return res.json({Msg: "Your name is already exists!"})     
         }
 
-    //check email existance
+    //check email is already exist
         if(dataEmail){
             return res.json({Msg: "Your email is already exists!"})
         }
         
-
+      // create an instance object template from class and insert data from client e.g: req.body
         const newEmployer = new employer({name: nameNoExtraSpace, email, comment}); // creating object from class
        await newEmployer.save(); // enable the data to save by mongoose and send to mongoDB as BJSON data type.
         res.status(200).json({ Msg: "Data is submitted successfully" }); // ✅send JSON this is manadatory to work the front end correctly nice!
