@@ -37,7 +37,7 @@ document.getElementById("contact-form").addEventListener("submit", async functio
 
     const res = await fetch(url, endpointObject);
     const data = await res.json(); //chaning data into Json format
-    const userFirstName = sendData.name.match(/\s+/); // changing the string into array by separating with space
+    const userFirstName = sendData.name.trim().split(/\s+/); // changing the string into array by separating with space
 
    const submitted = "Data is submitted successfully"
     if(data.Msg === submitted ){
