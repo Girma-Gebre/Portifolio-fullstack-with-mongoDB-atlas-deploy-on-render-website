@@ -29,7 +29,7 @@ async function resetCounterIfEmpty() {
   if (count === 0) {
     // Reset the counter for "UserId"
     await mongoose.connection.collection("_counters").updateOne( // _counters default mongoose can know
-      { _id: "sideJobs_UserId" },
+      { _id: "sidejobs_UserId" },
       { $set: { seq: 0 } },
       { upsert: true }
     );
