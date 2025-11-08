@@ -37,12 +37,12 @@ document.getElementById("contact-form").addEventListener("submit", async functio
 
     const res = await fetch(url, endpointObject);
     const data = await res.json(); //chaning data into Json format
-    const userFirstName = sendData.name.match(/^[^\s]+/)
+    const userFirstName = sendData.name.match(/\s+/); // changing the string into array by separating with space
 
    const submitted = "Data is submitted successfully"
     if(data.Msg === submitted ){
       this.reset();
-       alert(`Thanks "${userFirstName[0]}" for your interest! I’ll contact you soon.`)
+       alert(`Thanks "${userFirstName[0]} ${userFirstName[1]}" for your interest! I’ll contact you soon.`)
        // changing more than one style at once in Js
        Object.assign(display.style, {
          color: "#2196f3",
