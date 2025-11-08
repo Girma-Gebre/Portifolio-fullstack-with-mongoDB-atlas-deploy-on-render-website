@@ -42,7 +42,12 @@ document.getElementById("contact-form").addEventListener("submit", async functio
    const submitted = "Data is submitted successfully"
     if(data.Msg === submitted ){
       this.reset();
+      if(userFirstName[1]){
        alert(`Thanks "${userFirstName[0]} ${userFirstName[1]}" for your interest! I’ll contact you soon.`)
+      }else{
+        alert(`Thanks "${userFirstName[0]}" for your interest! I’ll contact you soon.`)
+      }
+       
        // changing more than one style at once in Js
        Object.assign(display.style, {
          color: "#2196f3",

@@ -18,7 +18,7 @@ const employer = mongoose.model("sideJob", employerSchema);
 
 router.post("/sidejob", async (req,res)=>{
     try{
-    const nameNoExtraSpace = req.body.name.replace(/\s+/g, " ").trim(); //avoiding extra space from name from client/frontend  
+    const nameNoExtraSpace = req.body.name.replace(/\s+/gi, " ").trim(); //avoiding extra space from name from client/frontend  
     const {email, comment} = req.body;
     const dataName = await employer.findOne({name:nameNoExtraSpace});
     const dataEmail = await employer.findOne({email});
