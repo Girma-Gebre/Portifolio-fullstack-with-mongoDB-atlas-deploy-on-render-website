@@ -23,6 +23,19 @@ employerSchema.plugin(Autoincrement, {inc_field: "UserId"});
 // creating "sideJobs" collection in the mongodb and class for creating an instance object template(data from client e.g: req.body).
 const employer = mongoose.model("sideJob", employerSchema); 
 
+// making the userId to be set 1 and autoincrement if there is no documnet in the collection
+async function resetCounterIfEmpty() {
+  const count = await employer.countDocuments();
+  if (count === 0) {
+    // Reset the counter for "UserId"
+    await mongoose.connection.collection("sideJob").updateOne(
+      { _id: "sideJob_UserId" },
+      { $set: { seq: 0 } },
+      { upsert: true }
+    );
+  }
+}
+
 router.post("/sidejob", async (req,res)=>{
     try{
     const nameNoExtraSpace = req.body.name.replace(/\s+/g, " ").trim(); //avoiding extra space from name from client/frontend  
@@ -46,6 +59,7 @@ router.post("/sidejob", async (req,res)=>{
             return res.json({Msg: "Your email is already exists!"})
         }
         
+        resetCounterIfEmpty() //calling the function to reset the "UserId"
       // create an instance object template from class and insert data from client e.g: req.body
         const newEmployer = new employer({name: nameNoExtraSpace, email, comment}); // creating object from class
        await newEmployer.save(); // enable the data to save by mongoose and send to mongoDB as BJSON data type.
