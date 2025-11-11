@@ -28,8 +28,8 @@ async function resetCounterIfEmpty() {
   const count = await employer.countDocuments(); // this shows the valoue of seq in counters collection it indicates the heighest "UserId" or the number of documents in the "sidejobs" collection in mongoDB database
   if (count === 0) {
     // Reset the counter for "UserId"
-    await mongoose.connection.collection("_counters").updateOne( // _counters default mongoose can know
-      { _id: "sidejobs_UserId" }, // <-- must match collection name + field exactly
+    await mongoose.connection.collection("_counters").updateOne( // _counters is the default mongoose can know
+      { _id: `${employer.collection.name}_UserId` }, // match the model name
       { $set: { seq: 0 } },
       { upsert: true } // insert if it is not exist update if it is exixt
     );
@@ -39,25 +39,25 @@ async function resetCounterIfEmpty() {
 router.post("/sidejob", async (req,res)=>{
     try{
     const nameNoExtraSpace = req.body.name.replace(/\s+/g, " ").trim(); //avoiding extra space from name from client/frontend  
-    const nameCaseInsensitive = new RegExp(nameNoExtraSpace, "i") // making variable (containing string) case insensetive using regex
     const {email, comment} = req.body;
-    const dataName = await employer.findOne({name:nameCaseInsensitive});
-    const dataEmail = await employer.findOne({email});
+    // finde the email or name
+    const existing = await employer.findOne({
+         $or: [
+               { name: nameCaseInsensitive },
+              { email: email }
+             ]
+             });
 
-    //check both name and email are already exist first
-      if(dataName && dataEmail){
-       return res.json({Msg: "Your name and email are already exist!"})
-       }
-
-    //check name is already exist
-        if(dataName){
-       return res.json({Msg: "Your name is already exists!"})     
-        }
-
-    //check email is already exist
-        if(dataEmail){
-            return res.json({Msg: "Your email is already exists!"})
-        }
+    if (existing) {
+     if (existing.name.toLowerCase() === nameNoExtraSpace.toLowerCase() &&
+      existing.email === email) {
+      return res.json({ Msg: "Your name and email are already exist!" });
+      } else if (existing.name.toLowerCase() === nameNoExtraSpace.toLowerCase()) {
+      return res.json({ Msg: "Your name is already exists!" });
+       } else if (existing.email === email) {
+      return res.json({ Msg: "Your email is already exists!" });
+      }
+     }
         
         await resetCounterIfEmpty() //calling the function to reset the "UserId"
       // create an instance object template from class and insert data from client e.g: req.body
