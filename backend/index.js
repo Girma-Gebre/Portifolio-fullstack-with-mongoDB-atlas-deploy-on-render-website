@@ -1,3 +1,4 @@
+require("dotenv").config();
 const cors = require('cors');
 const express = require('express');
 const postRouter = require('./crude operation/router-post');
