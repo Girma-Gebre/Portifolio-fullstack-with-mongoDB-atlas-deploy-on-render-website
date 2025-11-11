@@ -28,14 +28,14 @@ document.getElementById("contact-form").addEventListener("submit", async functio
     // collecting data from html input element
     const sendData = { name, email, comment }; // using ES6 shorthand object syntax.
     /*const url = "http://localhost:2000/sidejob"; // this url is for local database managment */
-    const url = "https://portifolio-fullstack-with-mongodb-atlas.onrender.com/sidejob"; // this url is for cloud database managment
+    const url = "https://portifolio-fullstack-with-mongodb-atlas-luxq.onrender.com/sidejob"; // this url is for cloud database managment
     const endpointObject = {
       method: "POST", 
       headers: {"Content-Type": "application/json"}, 
       body: JSON.stringify(sendData) // making the data sitring 
     };
 
-    const res = await fetch(url, endpointObject);
+    const res = await fetch(url, endpointObject); 
     const data = await res.json(); //chaning data into Json format
     const userFirstName = sendData.name.trim().split(/\s+/); // changing the string into array by separating with space
 

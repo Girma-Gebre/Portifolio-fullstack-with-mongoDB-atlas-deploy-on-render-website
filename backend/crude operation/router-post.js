@@ -43,7 +43,7 @@ router.post("/sidejob", async (req,res)=>{
     // finde the email or name
     const existing = await employer.findOne({
          $or: [
-               { name: nameCaseInsensitive },
+               { name: nameNoExtraSpace },
               { email: email }
              ]
              });
