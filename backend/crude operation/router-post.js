@@ -38,23 +38,25 @@ async function resetCounterIfEmpty() {
 
 router.post("/sidejob", async (req,res)=>{
     try{
-    const nameNoExtraSpace = req.body.name.replace(/\s+/g, " ").trim(); //avoiding extra space from name from client/frontend  
+    const nameNoExtraSpace = req.body.name.trim().replace(/\s+/g, " "); //avoiding extra space from name from client/frontend  
     const {email, comment} = req.body;
     // finde the email or name
-    const existing = await employer.findOne({
+    const existingData = await employer.findOne({
          $or: [
-               { name: nameNoExtraSpace },
-              { email: email }
+               {name: {$regex: `^${nameNoExtraSpace}$`}, $options: "i" },
+              {email: email}
              ]
              });
 
-    if (existing) {
-     if (existing.name.toLowerCase() === nameNoExtraSpace.toLowerCase() &&
-      existing.email === email) {
+    if (existingData) {
+      const sameName = existingData.name.toLowerCase() === nameNoExtraSpace.toLowerCase();
+      const sameEmail = existingData.email === email
+
+     if (sameName && sameEmail) {
       return res.json({ Msg: "Your name and email are already exist!" });
-      } else if (existing.name.toLowerCase() === nameNoExtraSpace.toLowerCase()) {
+      } else if (sameName) {
       return res.json({ Msg: "Your name is already exists!" });
-       } else if (existing.email === email) {
+       } else if (sameEmail) {
       return res.json({ Msg: "Your email is already exists!" });
       }
      }
