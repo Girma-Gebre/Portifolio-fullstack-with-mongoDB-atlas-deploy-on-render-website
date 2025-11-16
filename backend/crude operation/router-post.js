@@ -28,7 +28,7 @@ async function resetCounterIfEmpty() {
   const count = await employer.countDocuments(); // this shows the valoue of seq in counters collection it indicates the heighest "UserId" or the number of documents in the "sidejobs" collection in mongoDB database
   if (count === 0) {
     // Reset the counter for "UserId"
-    await mongoose.connection.collection("_counters").updateOne( // _counters is the default mongoose can know
+    await mongoose.connection.collection("counters").updateOne( // _counters is the default mongoose can know
       { _id: `${employer.collection.name}_UserId` }, // match the model name
       { $set: { seq: 0 } },
       { upsert: true } // insert if it is not exist update if it is exixt
