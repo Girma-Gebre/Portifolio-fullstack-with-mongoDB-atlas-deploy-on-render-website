@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const Autoincrement = require("mongoose-sequence")(mongoose); // import the autoincrement as-built module
 // connect the serer (node Js) with mongoDB atlas
-mongoose.connect(process.env.MONGO_URL)
+mongoose.connect(process.env.MONGO_URL, {family: 4})
 .then(()=>console.log("Conneted to MongoDB Atlas"))
-.catch(err=>console.error('Connection failed', err))
+.catch(err=>console.error('Connection failed', err)) 
 
 
 // create shema
