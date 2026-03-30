@@ -19,17 +19,16 @@ const employerSchema = new mongoose.Schema({
  //---------insert "User_id" field and make autoincrement for each data inserted from client/fromtend-------
 //--------inc_field is plugin expexted object key
 // ---- Always apply the plugin before creating the model:
-employerSchema.plugin(Autoincrement, {inc_field: "UserId"}); 
-// creating "sideJobs" collection in the mongodb and class for creating an instance object template(data from client e.g: req.body).
+employerSchema.plugin(Autoincrement, {inc_field: "sidejobsID"}); 
+// creating "sidejobsID" field in the collection of "counter" in the mongoDB atlas to auto increment the value of "sidejobsId" for each document inserted in the "sidejobs" collection in monngoDB database. This is the identification name for each database document.
 const employer = mongoose.model("sideJob", employerSchema); 
-
-// making the userId to be set 1 and autoincrement if there is no documnet in the collection
+// This is making "sideJob" collection in the mongoDB database and the noame of the collection is the same as the model name but in lowercase and plural form by defualt.
 async function resetCounterIfEmpty() {
-  const count = await employer.countDocuments(); // this shows the valoue of seq in counters collection it indicates the heighest "UserId" or the number of documents in the "sidejobs" collection in mongoDB database
+  const count = await employer.countDocuments(); // this shows the valoue of seq in counters collection it indicates the heighest "sideJobID" or the number of documents in the "sidejobs" collection in mongoDB database
   if (count === 0) {
     // Reset the counter for "UserId"
-    await mongoose.connection.collection("counters").updateOne( // _counters is the default mongoose can know
-      { _id: `${employer.collection.name}_UserId` }, // match the model name
+    await mongoose.connection.collection("sideJobsResetSeq").updateOne( // SideJobCounter is the name of the database collection in mongoDb atlas use to reset the value of "sideJobID" for each document in the "sidejpbs" database collection in mongoDb atlas if we remove the document with the "id: sideJobID" from "counters" database, it (counters) is created automathically when the client insert at first time.
+      { _id: `${employer.collection.name}_UserID` }, // to indicate the name of the collection and its field name. 
       { $set: { seq: 0 } },
       { upsert: true } // insert if it is not exist update if it is exixt
     );
@@ -68,6 +67,7 @@ router.post("/sidejob", async (req,res)=>{
         res.status(200).json({ Msg: "Data is submitted successfully" }); // ✅send JSON this is manadatory to work the front end correctly nice!
           
     }catch(err){
+      console.log(err);
         res.status(500).json({Msg: "internal server error or problem on database connection"});
     }
 });
