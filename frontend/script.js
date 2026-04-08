@@ -30,7 +30,7 @@ document.getElementById("contact-form").addEventListener("submit", async functio
       // const url = "http://localhost:2000/sidejob"; // this url is for local database managment 
     const url = "https://portifolio-fullstack-with-mongodb-atlas-luxq.onrender.com/sidejob"; // this url is for cloud database managment
     const endpointObject = {
-      method: "POST", 
+      method: "POST",
       headers: {"Content-Type": "application/json"}, 
       body: JSON.stringify(sendData) // making the data sitring 
     };
